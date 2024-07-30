@@ -1,6 +1,4 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-
 import '../widgets/page_view_widget.dart';
 
 class PageViewExample extends StatefulWidget {
@@ -34,14 +32,6 @@ class _PageViewExampleState extends State<PageViewExample>
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Text("Skip",style: TextStyle(
-            decorationThickness: 4, ),),
-          SizedBox(width:5)
-        ],
-      ),
-
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[

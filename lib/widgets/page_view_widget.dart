@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:page_viewer/utlis/color_utiltiy.dart';
 
 class PageViewWidget extends StatefulWidget {
  final String imagepath;
@@ -24,74 +25,92 @@ class _PageViewWidgetState extends State<PageViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return
+      Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+
+        SizedBox(height:40),
+        widget.currentPageIndex !=3 ?
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Image.asset(widget.imagepath),
-            ),
-            Text(widget.title),
-            Text(widget.subtitle,style: TextStyle(color: Colors.grey),),
-            SizedBox(height: 20,),
-            DotsIndicator(
-              dotsCount: 4, // needed
-              position: widget.currentPageIndex,
-              decorator: DotsDecorator(
-                shape:   RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                size: const Size(30.0, 7.0),
-                activeSize: const Size(30.0, 7.0),
-                activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+            Text("Skip"),
+            SizedBox(width: 15,)
+              ]  ): SizedBox(),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(35.0),
+                child: Image.asset(widget.imagepath),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed:(){
-                      if (widget.currentPageIndex == 0) {
-                        return;
-                      }
-                      widget.onUpdateCurrentPageIndex(widget.currentPageIndex - 1);
-                    setState(() {
-
-                    });
-                      } ,
-                    child: Icon(Icons.arrow_back, color: Colors.white),
-                    style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(),
-                      padding: EdgeInsets.all(15),
-                      backgroundColor: Color(0xffF5BB06), // <-- Button color
-                      foregroundColor: Colors.red, // <-- Splash color
-                    ),
+          
+              Text(widget.title,style: TextStyle(fontSize: 24,fontWeight: FontWeight.w700),),
+              SizedBox(height: 15,),
+              Text(widget.subtitle,style: TextStyle(color: ColorUtility.grey,fontSize: 16,fontWeight: FontWeight.w700),),
+              SizedBox(height: 65,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DotsIndicator(
+                  dotsCount: 4, //
+                  position: widget.currentPageIndex,
+                  decorator: DotsDecorator(
+                    shape:   RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    size: const Size(42.0, 7.0),
+                    activeSize: const Size(42.0, 7.0),
+                    activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    activeColor: ColorUtility.deepYellow,
+                    color: ColorUtility.main
                   ),
-
-                  ElevatedButton(
-                    onPressed: (){
-                      if (widget.currentPageIndex == 0) {
-                        return;
-                      }
-                      widget.onUpdateCurrentPageIndex(widget.currentPageIndex + 1);
-
-                    },
-                    child: Icon(Icons.arrow_forward, color: Colors.white),
-                    style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(),
-                      padding: EdgeInsets.all(15),
-                      backgroundColor: Color(0xffF5BB06), // <-- Button color
-                      foregroundColor: Colors.red, // <-- Splash color
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-
-          ],
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed:(){
+                        if (widget.currentPageIndex == 0) {
+                           null;
+                        }
+                        widget.onUpdateCurrentPageIndex(widget.currentPageIndex - 1);
+                      setState(() {
+          
+                      });
+                        } ,
+                      child: Icon(Icons.arrow_back, color: Colors.white),
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(15),
+                        backgroundColor:widget.currentPageIndex == 0 ? Colors.grey:Color(0xffF5BB06), // <-- Button color
+                      ),
+                    ),
+          
+                    ElevatedButton(
+                      onPressed: (){
+          
+                        widget.onUpdateCurrentPageIndex(widget.currentPageIndex + 1);
+          
+                      },
+                      child: Icon(Icons.arrow_forward, color: Colors.white),
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(15),
+                        backgroundColor: Color(0xffF5BB06), // <-- Button color
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          
+            ],
+          ),
         ),
-      );
+      ],
+    );
   }
 
 }
